@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import React from 'react';
+import LiquidServer from 'src/server/liquid';
+
 const App: React.FC = () => {
+  const [text, setText] = React.useState('');
+  function setDisplay() {
+    LiquidServer.display(text, 0, 0);
+    setText('');
+  }
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Liquid Crystal LCD Controller</h1>
+        <div style={{ display: 'flex' }}>
+          <input type="text" value={text} onChange={event => setText(event.target.value)} />
+          <button onClick={setDisplay}>Send</button>
+          <button onClick={() => LiquidServer.clear()}>Clear</button>
+        </div>
       </header>
     </div>
   );
-}
+};
 
 export default App;
